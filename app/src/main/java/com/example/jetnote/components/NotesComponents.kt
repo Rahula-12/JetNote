@@ -2,6 +2,7 @@ package com.example.jetnote.components
 
 import androidx.compose.foundation.text.KeyboardActions
 import androidx.compose.foundation.text.KeyboardOptions
+import androidx.compose.material3.Button
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
@@ -45,4 +46,22 @@ fun NoteInputText(
         ),
         modifier=modifier
     )
+}
+
+@Composable
+fun NotesButton(
+    modifier: Modifier=Modifier,
+    text: String,
+    onClick:()->Unit,
+    enabled:Boolean=true
+){
+    Button(
+        onClick = {
+        onClick()
+    },
+        modifier=modifier,
+        enabled=enabled
+    ) {
+        Text(text = text)
+    }
 }
