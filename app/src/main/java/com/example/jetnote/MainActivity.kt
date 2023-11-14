@@ -10,6 +10,7 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import com.example.jetnote.data.DataSource
 import com.example.jetnote.sceen.NoteScreen
 import com.example.jetnote.ui.theme.JetNoteTheme
 
@@ -24,7 +25,7 @@ class MainActivity : ComponentActivity() {
                     color = MaterialTheme.colorScheme.background
                 ) {
                     NoteScreen(
-                        notes = emptyList()
+                        notes = DataSource.notes
                     )
                 }
             }
