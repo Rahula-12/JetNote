@@ -22,10 +22,15 @@ import androidx.compose.ui.unit.dp
 import com.example.jetnote.R
 import com.example.jetnote.components.NoteInputText
 import com.example.jetnote.components.NotesButton
+import com.example.jetnote.model.Note
 
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
-fun NoteScreen() {
+fun NoteScreen(
+    notes:List<Note>,
+    addNote:(Note)->Unit={},
+    removeNote:(Note)->Unit={}
+) {
     val title= remember {
         mutableStateOf("")
     }
@@ -90,5 +95,9 @@ fun NoteScreen() {
 @Preview(showBackground = true, showSystemUi = true)
 @Composable
 fun NoteScreenPreview() {
-    NoteScreen()
+    NoteScreen(
+        notes = emptyList(),
+        addNote = {},
+        removeNote = {}
+    )
 }
