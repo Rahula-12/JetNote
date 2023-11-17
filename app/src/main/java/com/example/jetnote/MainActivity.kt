@@ -12,6 +12,7 @@ import androidx.compose.runtime.remember
 import androidx.compose.runtime.saveable.rememberSaveable
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
+import androidx.lifecycle.ViewModelProvider
 import com.example.jetnote.data.DataSource
 import com.example.jetnote.model.Note
 import com.example.jetnote.sceen.NoteScreen
@@ -20,6 +21,7 @@ import com.example.jetnote.ui.theme.JetNoteTheme
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        val noteViewModel=ViewModelProvider(this)[NoteViewModel::class.java]
         setContent {
             JetNoteTheme {
                 // A surface container using the 'background' color from the theme
@@ -27,23 +29,25 @@ class MainActivity : ComponentActivity() {
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    val notes:MutableList<Note> = remember {
-                        mutableStateListOf()
-                    }
-                    notes.addAll(DataSource.notes)
-                    NoteScreen(
-                        notes = notes,
-                        addNote = {
-                            notes.add(it)
-                        },
-                        removeNote={
-                            notes.remove(it)
-                        }
-                    )
+                    NoteApp(viewModel = noteViewModel)
                 }
             }
         }
     }
+}
+
+@Composable
+fun NoteApp(viewModel: NoteViewModel) {
+    val noteList=viewModel.getAllNotes()
+    NoteScreen(
+        notes = noteList,
+        addNote = {
+            viewModel.addNote(it)
+        },
+        removeNote = {
+            viewModel.removeNote(it)
+        }
+    )
 }
 
 @Preview(showBackground = true)
